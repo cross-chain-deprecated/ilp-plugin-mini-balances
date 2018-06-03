@@ -2,6 +2,7 @@ const IlpPacket = require('ilp-packet')
 const PluginMiniAccounts = require('ilp-plugin-mini-accounts')
 const debug = require('debug')('ilp-plugin-mini-balances')
 const BigNumber = require('bignumber.js')
+const crypto = require('crypto')
 
 class PluginMiniBalances extends PluginMiniAccounts {
   constructor (opts) {
@@ -37,6 +38,15 @@ class PluginMiniBalances extends PluginMiniAccounts {
 
   async _handlePrepareResponse (destination, packet, prepare) {
     if (packet.type === IlpPacket.TYPE_FULFILL) {
+      if (!crypto.createHash('sha256')
+        .update(packet.data.fulfillment)
+        .digest()
+        .equals(prepare.data.executionCondition)) {
+        throw new IlpPacket.Errors.WrongConditionError(
+          `condition and fulfillment mismatch. ` +
+          `condition=${prepare.data.executionCondition.toString('hex')} ` +
+          `fulfillment=${packet.data.fulfillment.toString('hex')}`)
+      }
       this._addBalance(destination, prepare.data.amount)
     }
   }
