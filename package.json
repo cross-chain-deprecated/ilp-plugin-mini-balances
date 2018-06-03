@@ -4,7 +4,8 @@
   "description": "> ILP Plugin Mini Accounts without unlimited spending",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "standard",
+    "test": "nyc --reporter=lcov mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,15 @@
   },
   "homepage": "https://github.com/sharafian/ilp-plugin-mini-balances#readme",
   "dependencies": {
+    "debug": "^3.1.0",
     "ilp-packet": "^2.2.0",
     "ilp-plugin-mini-accounts": "^3.4.5"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "sinon": "^5.0.10",
+    "standard": "^11.0.1"
   }
 }

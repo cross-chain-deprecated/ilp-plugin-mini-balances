@@ -18,6 +18,13 @@ class PluginMiniBalances extends PluginMiniAccounts {
   _addBalance (address, amount) {
     const balance = new BigNumber(this._store.get(this._balanceKey(address)) || '0')
     const newBalance = balance.plus(amount)
+
+    debug(`add balance. ` +
+      `amount=${amount} ` +
+      `balance=${balance.toString()} ` +
+      `newBalance=${newBalance.toString()} ` +
+      `address=${address}`)
+
     this._store.set(this._balanceKey(address), newBalance.toString())
   }
 
@@ -51,6 +58,12 @@ class PluginMiniBalances extends PluginMiniAccounts {
       const balance = new BigNumber(this._store.get(this._balanceKey(from)) || '0')
       const newBalance = balance.minus(parsedRequest.data.amount)
 
+      debug(`subtract balance. ` +
+        `amount=${parsedRequest.data.amount} ` +
+        `balance=${balance.toString()} ` +
+        `newBalance=${newBalance.toString()} ` +
+        `address=${from}`)
+
       if (newBalance.isLessThan('0')) {
         return this.ilpAndCustomToProtocolData({
           ilp: IlpPacket.serializeIlpReject({
@@ -73,3 +86,5 @@ class PluginMiniBalances extends PluginMiniAccounts {
     return this.ilpAndCustomToProtocolData({ ilp: response })
   }
 }
+
+module.exports = PluginMiniBalances
