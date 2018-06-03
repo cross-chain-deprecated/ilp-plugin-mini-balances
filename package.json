@@ -1,6 +1,6 @@
 {
   "name": "ilp-plugin-mini-balances",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> ILP Plugin Mini Accounts without unlimited spending",
   "main": "index.js",
   "scripts": {
