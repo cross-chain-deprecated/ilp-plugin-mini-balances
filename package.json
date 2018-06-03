@@ -1,0 +1,23 @@
+{
+  "name": "ilp-plugin-mini-balances",
+  "version": "1.0.0",
+  "description": "> ILP Plugin Mini Accounts without unlimited spending",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharafian/ilp-plugin-mini-balances.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharafian/ilp-plugin-mini-balances/issues"
+  },
+  "homepage": "https://github.com/sharafian/ilp-plugin-mini-balances#readme",
+  "dependencies": {
+    "ilp-plugin-mini-accounts": "^3.4.5",
+    "ilp-store-wrapper": "^1.0.0"
+  }
+}
