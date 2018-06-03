@@ -52,7 +52,7 @@ class PluginMiniBalances extends PluginMiniAccounts {
   }
 
   async _handleCustomData (from, btpPacket) {
-    const { ilp } = this.protocolDataToIlpAndCustom(btpPacket)
+    const { ilp } = this.protocolDataToIlpAndCustom(btpPacket.data)
 
     if (!ilp) {
       throw new Error('invalid packet, no ilp protocol data.')
