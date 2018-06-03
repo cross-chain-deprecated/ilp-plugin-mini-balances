@@ -37,7 +37,7 @@ class PluginMiniBalances extends PluginMiniAccounts {
   }
 
   async _handlePrepareResponse (destination, packet, prepare) {
-    if (packet.type === IlpPacket.TYPE_FULFILL) {
+    if (packet.type === IlpPacket.Type.TYPE_ILP_FULFILL) {
       if (!crypto.createHash('sha256')
         .update(packet.data.fulfillment)
         .digest()
@@ -63,7 +63,7 @@ class PluginMiniBalances extends PluginMiniAccounts {
     }
 
     const parsedRequest = IlpPacket.deserializeIlpPacket(ilp)
-    const isPrepare = parsedRequest.type === IlpPacket.TYPE_PREPARE
+    const isPrepare = parsedRequest.type === IlpPacket.Type.TYPE_ILP_PREPARE
     if (isPrepare) {
       const balance = new BigNumber(this._store.get(this._balanceKey(from)) || '0')
       const newBalance = balance.minus(parsedRequest.data.amount)
@@ -89,7 +89,7 @@ class PluginMiniBalances extends PluginMiniAccounts {
 
     const response = await this._dataHandler(ilp)
     const parsedResponse = IlpPacket.deserializeIlpPacket(response)
-    if (isPrepare && parsedResponse.type === IlpPacket.TYPE_REJECT) {
+    if (isPrepare && parsedResponse.type === IlpPacket.Type.TYPE_ILP_REJECT) {
       this._addBalance(from, parsedRequest.data.amount)
     }
 
